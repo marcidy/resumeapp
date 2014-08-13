@@ -12,6 +12,7 @@ requires = [
     'jinja2',
     'sqlalchemy',
     'alembic',
+    'transaction',
 ]
 setup(name='resumes',
       version='0.0',

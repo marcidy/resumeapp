@@ -17,7 +17,7 @@ def init_db_from_config(config):
 def main():
 
     config = ConfigParser.RawConfigParser()
-    config.read('config.cfg')
+    config.read('../config.cfg')
     db = init_db_from_config(config)
 
     resume_renderer = jinja2.Environment(

@@ -106,6 +106,7 @@ class Section(Base):
     __tablename__ = 'cv_objects'
     id = Column(Integer, primary_key=True)
     title = Column(Text)
+    description = Column(Text)
     cventry = relationship('cventry')
 
 

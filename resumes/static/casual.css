@@ -17,6 +17,8 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
     padding: 0;
     border: 0;
     font-size: 100%;
+    /* font-family: "Arial", Helvetica, sans-serif; */
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-weight: normal;
     vertical-align: baseline;
     background: transparent;
@@ -135,6 +137,7 @@ input[type=button] {width: auto; overflow: visible;}
 #wrap{
     width: 70%;
     margin: 50px 150px;
+    max-width: 1000px;
 }
 #header{
     text-align:right;
@@ -165,28 +168,35 @@ input[type=button] {width: auto; overflow: visible;}
     top: -19px;
     height: 5px;
 }
-.section .title{
+.section.title{
     color:#F33333;
     font-size: 20px;
 }
 .mainline > div{
     float: left;
-    margin-right: 5px;
-    padding: 5px;
+    margin-right: 10px;
 }
-.cventry  .years{
-    width: 12%;
+.cventry.years{
+    font-size: 1.0em;
+    width: 110px;
 }
-.cventry .description{
+.cventry.title{
+    font-weight: bold;
+}
+.cventry.institution{
+    font-style: italic;
+}
+.cventry.description{
      clear:both;
-     margin-left: 12%;
+     margin-left: 110px;
+     margin-bottom: 5px;
      padding-left: 10px;
      font-size: 14px;
 }
 ul.cvlistitems{
     list-style-type: circle;
     color: #F33333;
-    margin-left: 12%;
+    margin-left: 110px;
     padding-left: 27px;
 }
 span.cvlistitem{
@@ -200,7 +210,7 @@ span.cvlistitem{
     width: 25%;
     float: left;
 }
-.cvcolumn .name{
+.cvcolumn.name{
     color: #F33333;
 }
 ul.cvitemized{

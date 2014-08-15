@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Projects</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="keywords" content="Matthew Arcidy Resume" />
+    <meta name="description" content="Matthew Arcidy's Resume" />
+    <link rel="stylesheet" 
+    href="static/(((cv.style))).css"
+    type="text/css" 
+    media="screen" 
+    charset="utf-8" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet"
+    href="static/ie6.css"
+    type="text/css" 
+    media="screen" 
+    charset="utf-8" />
+    <![endif]-->
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="header">
+        <div id="photo">
+          <!-- img alt="Photo" src="resume.eps" /-->
+        </div>
+        <div id="name">
+          (((cv.person.first_name))) <span id="last-name">(((cv.person.last_name)))</span>
+        </div>
+        <div id="header-sep">
+          <hr />
+        </div>
+        <div id="title">
+          (((cv.title)))
+        </div>
+      </div>
+      <div class="sections">
+        ((* for section in cv.sections *))
+        <div class="section">
+          <div class="section title">
+            (((section.title)))
+          </div>
+          ((* if section.description *))
+          <div class="section description">
+            (((section.description if section.description)))
+          </div>
+          ((* endif *))
+          ((* if section.cventry *))
+          <div class="cventrys">
+            ((* for cventry in section.cventry *))
+            <div class="cventry">
+              <div class="cventry mainline">
+                <div class="cventry years">
+                  (((cventry.start_yr)))&mdash;(((cventry.end_yr if cventry.end_yr else 'Present')))
+                </div>
+                <div class"cventry title">
+                  (((cventry.title)))
+                </div>
+                <div class="cventry institution">
+                  (((cventry.institution)))
+                </div>
+                <div class="cventry location">
+                  (((cventry.city))), (((cventry.state)))
+                </div>
+                <div class="cventry gpa">
+                  ((('%s' % cventry.gpa if cventry.gpa )))(((', %s' % cventry.honors if cventry.honors)))
+                </div>
+              </div>
+              <div class="cventry description">
+                (((cventry.description)))
+              </div>
+              ((* if cventry.cvlistitems *))
+              <div class="cventry cvlistitems">
+                <ul class="cventry cvlistitems">
+                  ((* for item in cventry.cvlistitems *))
+                  <li class="cventry cvlistitem"><span class="cvlistitem">(((item.text)))</span></li>
+                  ((* endfor *))
+                </ul>
+              </div> <!-- End of CVEntry CVListitem -->
+              ((* endif *))
+              ((* if cventry.cvcolumns *))
+              <br>
+              <div class="cventry cvcolumns">
+                ((* for col in cventry.cvcolumns *))
+                <div class="cventry cvcolumn">
+                  <span class="cventry column_name">(((col.name if col.name )))</span>
+                  ((* for item in col.items *))
+                  <div class="cventry cvcolumn_item">
+                    (((item.text)))
+                  </div>
+                  ((* endfor *))
+                </div>
+                ((* endfor *))
+              </div> <!-- End of CVEntry CVColumns -->
+              ((* endif *))
+              ((* if cventry.cvitemized *))
+              <br>
+              <div class="cventry cvitemized">
+                ((* for heading in cventry.cvitemized *))
+                <ul class="cventry cvitemized">
+                  <li>
+                  <span class="cventry cvitemized heading">
+                    (((heading.text if heading.text)))
+                  </span>
+                  ((* for item in heading.items *))
+                  </li>
+                  <ul class="cventry cvitemized item">
+                    <li class="cventry cvitemized item">
+                    <span class="cventry cvitemized item">
+                      (((item.text)))
+                    </span>
+                    </li>
+                    ((* endfor *))
+                  </ul>
+                </ul>
+                ((* endfor *))
+              </div> <!-- End of CVEntry Itemized -->
+              ((* endif *))
+              <br>
+            </div> <!-- End of CVEntry -->
+            ((* endfor *))
+          </div> <!--End of CVEntries -->
+          ((* endif *))
+          ((* if section.cvlistitems *))
+          <div class="section cvlistitems">
+            ((* for item in section.cvlistitems *))
+            <div class="section cvlistitems item">
+              (((item.text)))
+            </div>
+            ((* endfor *))
+          </div> <!-- End of Section CVListItems -->
+          ((* endif *))
+          ((*- if section.cvcolumngroups *))
+          <div class="section cvcolumngroups">
+            ((* for group in section.cvcolumngroups *))
+            <div class="section cvcolumngroups group">
+              ((* for col in group.cvcolumns *))
+              <div class="section cvcolumngroups column">
+                <div class="section cvcolumngroups col_name">
+                  ((* if col.name *))
+                  (((col.name if col.name)))
+                  ((* else *))
+                  (((' ')))<br >
+                  ((* endif *))
+                </div>
+                <ul class="section cvcolumngroup items">
+                  ((* for item in col.items *))
+                  <li class="section cvcolumngroup item">(((item.text)))</li>
+                  ((* endfor *))
+                </ul>
+              </div>
+              ((* endfor *))
+            </div> <!-- End of Section CVColumnGroup -->
+            <br>
+            ((* endfor *)) 
+          </div> <!-- End of Section CVCoolumnGroups -->
+          ((* endif *))
+          ((* if section.cvitemized *))
+          <div class="section cvitemized">
+            ((* for heading in cvitemized *))
+            <div class="section cvitemized heading">
+              ((('\item %s'% heading.text if heading.text)))
+            </div>
+            ((* if heading.items *))
+            <div class="section cvitemized items">
+              ((* for item in heading.items *))
+              <div class="section cvitemized item">
+                (((item.text)))
+              </div>
+              ((* endfor *))
+            </div>
+            ((* endif *))
+            ((* endfor *))
+          </div> <!-- End of Section CVItemized -->
+          ((* endif *))
+          <br>
+          ((* endfor *))
+        </div>
+        <div id="footer">
+          <div class="street-addr">
+            (((cv.person.address.street_num))) (((cv.person.address.street_name))) (((cv.person.address.street_type))) (((cv.person.address.apt_num)))
+          </div>
+          <div class="street-addr">
+            (((cv.person.address.city))), (((cv.person.address.state))) (((cv.person.address.zip)))
+          </div>
+          ((* for phone in cv.person.phone *))
+          <div class="phone">
+            [(((phone.type)))] (((phone.country))) ((('(')))(((phone.area_code)))(((')'))) (((phone.prefix))).(((phone.line_number)))
+          </div>
+          ((* endfor *))
+          <div id="email-addr">
+            (((cv.person.email)))
+          </div>
+          <div class="social">
+            [linkedin](((cv.person.linkedin)))
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+
+
+  <!--
+  \moderncvcolor{(((cv.color)))}
+
+  ((* if cv.footnotestyle == 'symbols' *))
+  (((cv.ft_symbols())))
+  ((* endif *))
+  -->
+

@@ -49,7 +49,7 @@
           ((* if section.cventry *))
           <div class="cventrys">
             ((* for cventry in section.cventry *))
-            <div class="cventry">
+            <div class="cventry wrap">
               <div class="cventry mainline">
                 <div class="cventry years">
                   (((cventry.start_yr)))&mdash;(((cventry.end_yr if cventry.end_yr else 'Present')))
@@ -80,7 +80,6 @@
               </div> <!-- End of CVEntry CVListitem -->
               ((* endif *))
               ((* if cventry.cvcolumns *))
-              <br>
               <div class="cventry cvcolumns">
                 ((* for col in cventry.cvcolumns *))
                 <div class="cventry cvcolumn">
@@ -95,7 +94,6 @@
               </div> <!-- End of CVEntry CVColumns -->
               ((* endif *))
               ((* if cventry.cvitemized *))
-              <br>
               <div class="cventry cvitemized">
                 ((* for heading in cventry.cvitemized *))
                 <ul class="cventry cvitemized">
@@ -117,7 +115,6 @@
                 ((* endfor *))
               </div> <!-- End of CVEntry Itemized -->
               ((* endif *))
-              <br>
             </div> <!-- End of CVEntry -->
             ((* endfor *))
           </div> <!--End of CVEntries -->
@@ -132,7 +129,7 @@
           </div> <!-- End of Section CVListItems -->
           ((* endif *))
           ((*- if section.cvcolumngroups *))
-          <div class="section cvcolumngroups">
+          <div class="section cvcolumngroups wrap">
             ((* for group in section.cvcolumngroups *))
             <div class="section cvcolumngroups group">
               ((* for col in group.cvcolumns *))
@@ -141,7 +138,7 @@
                   ((* if col.name *))
                   (((col.name if col.name)))
                   ((* else *))
-                  (((' ')))<br >
+                  (((' ')))</br >
                   ((* endif *))
                 </div>
                 <ul class="section cvcolumngroup items">
@@ -190,10 +187,10 @@
           </div>
           ((* endfor *))
           <div id="email-addr">
-            (((cv.person.email)))
+            <a href='mailto://(((cv.person.email)))'>(((cv.person.email)))</a>
           </div>
           <div class="social">
-            [linkedin](((cv.person.linkedin)))
+            [linkedin]<a href='http://(((cv.person.linkedin)))'>(((cv.person.linkedin)))</a>
           </div>
         </div>
       </div>

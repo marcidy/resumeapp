@@ -135,9 +135,10 @@ input[type=button] {width: auto; overflow: visible;}
 .clearfix { zoom: 1; }  
 
 #wrap{
+    max-width: 850px;
     width: 70%;
-    margin: 50px 150px;
-    max-width: 1000px;
+    margin: 50px 15%;
+    min-width: 850px;
 }
 #header{
     text-align:right;
@@ -172,6 +173,9 @@ input[type=button] {width: auto; overflow: visible;}
     color:#F33333;
     font-size: 20px;
 }
+.cventry.wrap{
+    margin-top: 5px;
+}
 .mainline > div{
     float: left;
     margin-right: 10px;
@@ -198,12 +202,21 @@ ul.cvlistitems{
     color: #F33333;
     margin-left: 110px;
     padding-left: 27px;
+    margin-bottom: 10px;
 }
 span.cvlistitem{
     color: #000000;
 }
+.cvcolumngroups.wrap {
+    margin-top: 5px;
+}
+.cventry.cvcolumns{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .cvcolumns{
     margin-left: 45px;
+    margin-top: 5px;
     overflow: hidden;
 }
 .cvcolumn{
@@ -216,6 +229,7 @@ span.cvlistitem{
 ul.cvitemized{
     list-style-type: circle;
     color: #F33333;
+    margin-bottom: 5px;
 }
 span.cvitemized{ 
     color:#000000
@@ -224,7 +238,7 @@ ul.item {
     list-style: square;
 }
 li.item{
-    margin-left: 15px;
+    margin-left: 20px;
 }
 .col_name {
     color: #F33333;
@@ -239,4 +253,10 @@ li.item{
 .group{
     clear:both;
     overflow: hidden;
+}
+#footer{
+    width:40%;
+    margin-left: 20%;
+    margin-right: 20%;
+    text-align: center;
 }

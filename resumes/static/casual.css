@@ -21,7 +21,6 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-weight: normal;
     vertical-align: baseline;
-    background: transparent;
 }
 
 article, aside, figure, footer, header, nav, section, details, summary {display: block;}
@@ -133,12 +132,16 @@ input[type=button] {width: auto; overflow: visible;}
 .clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }  
 .clearfix:after { clear: both; }  
 .clearfix { zoom: 1; }  
-
+body{
+    background: gray;
+}
 #wrap{
     max-width: 850px;
     width: 70%;
     margin: 50px 15%;
     min-width: 850px;
+    padding: 10px 5%;
+    background: white;
 }
 #header{
     text-align:right;
@@ -255,8 +258,12 @@ li.item{
     overflow: hidden;
 }
 #footer{
-    width:40%;
+    position: relative;
+    width:60%;
     margin-left: 20%;
     margin-right: 20%;
     text-align: center;
+}
+#footer a:link{
+    color: #F33333;
 }

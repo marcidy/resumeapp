@@ -64,15 +64,15 @@ def html():
     db = init_db_from_config(config)
 
     resume_renderer = jinja2.Environment(
-        block_start_string='((*',
-        block_end_string='*))',
-        variable_start_string='(((',
-        variable_end_string=')))',
+        # block_start_string='((*',
+        # block_end_string='*))',
+        # variable_start_string='(((',
+        # variable_end_string=')))',
         lstrip_blocks=True,
         trim_blocks=True,
         loader=jinja2.FileSystemLoader(os.path.abspath('.')))
 
-    template = resume_renderer.get_template('./templates/resume-moderncv.html')
+    template = resume_renderer.get_template('./templates/resume_casual.jinja2')
 
     cv = db.query(Resume).all()[0]
     out = template.render(cv=cv)

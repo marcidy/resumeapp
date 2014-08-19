@@ -23,15 +23,8 @@ charset="utf-8" />
     <div class="short items header">
       Short Items
     </div>
-    {{ forms.short_item_form() }}
-    {{ macros.short_items_display(short_items) }}
-  </div>
-  <div class="long items">
-    <div class="long items header">
-      Long Items
-    </div>
-    {{ forms.long_item_form() }}
-    {{ macros.long_items_display(long_items) }}
+    {{ forms.add_categories_form() }}
+    {{ macros.categories_display(categories) }}
   </div>
 </div>
 {% endblock %}

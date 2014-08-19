@@ -1,15 +1,31 @@
-from sqlalchemy.ext.declarative import declarative_base
+from pyramid_sqlalchemy import BaseObject as Base
 from sqlalchemy import (Column,
                         Text,
                         Integer,
-                        ForeignKey,
-                        Table,)
+                        String,
+                        ForeignKey,)
 from sqlalchemy.orm import relationship
+from resumes.associations import (itemized_lists_table,
+                                  column_items_table,
+                                  group_column_table,
+                                  entry_items_table,
+                                  entry_columns_table,
+                                  entry_itemized_table,
+                                  section_entry_table,
+                                  section_items_table,
+                                  section_columngroup_table,
+                                  section_itemized_table,
+                                  resume_section_table,
+                                  cvitem_category_table,
+                                  cvlistitem_category_table,
+                                  )
 
-Base = declarative_base()
+
+class Common(object):
+    logical_del = Column(Integer)
 
 
-class Person(Base):
+class Person(Base, Common):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
     first_name = Column(Text)
@@ -23,7 +39,7 @@ class Person(Base):
     resumes = relationship("Resume", backref="person")
 
 
-class Address(Base):
+class Address(Base, Common):
     __tablename__ = 'address'
     id = Column(Integer, primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'))
@@ -36,7 +52,7 @@ class Address(Base):
     zip = Column(Integer)
 
 
-class Phone(Base):
+class Phone(Base, Common):
     __tablename__ = 'phone'
     id = Column(Integer, primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'))
@@ -47,50 +63,52 @@ class Phone(Base):
     line_number = Column(Integer)
 
 
-class CVItemCategories(Base):
+class ItemCategories(Base, Common):
     __tablename__ = 'cvitemcategories'
     id = Column(Integer, primary_key=True)
     label = Column(Text)
+    type = Column(String(20))
 
-itemized_lists_table = Table('itemized_lists',
-                             Base.metadata,
-                             Column('cvlist_id',
-                                    Integer,
-                                    ForeignKey('cvlistitems.id')),
-                             Column('cvlisthead_id',
-                                    Integer,
-                                    ForeignKey('cvlistheadings.id')))
+    __mapper_args__ = {
+        'polymorphic_on': type,
+    }
 
 
-class CVListItem(Base):
+class CVItemCategories(ItemCategories):
+    __mapper_args__ = {
+        'polymorphic_identity': 'CVItem'
+    }
+
+
+class CVListItemCategories(ItemCategories):
+    __mapper_args__ = {
+        'polymorphic_identity': 'CVListItem'
+    }
+
+
+class CVListItem(Base, Common):
 
     ''' Long description items '''
     __tablename__ = 'cvlistitems'
     id = Column(Integer, primary_key=True)
     text = Column(Text)
-#    categories = relationship('CVItemCategories')
+    categories = relationship('CVListItemCategories',
+                              secondary=cvlistitem_category_table,
+                              backref='cvlistitems')
 
 
-column_items_table = Table('cvcolumn_items',
-                           Base.metadata,
-                           Column('cvcolumns_id',
-                                  Integer,
-                                  ForeignKey('cvcolumns.id')),
-                           Column('column_item_id',
-                                  Integer,
-                                  ForeignKey('cvitems.id')))
-
-
-class CVItems(Base):
+class CVItems(Base, Common):
 
     ''' short description items, like a skill '''
     __tablename__ = 'cvitems'
     id = Column(Integer, primary_key=True)
     text = Column(Text)
-#    categories = relationship('CVItemCategories')
+    categories = relationship('CVItemCategories',
+                              secondary=cvitem_category_table,
+                              backref='cvitems')
 
 
-class CVListHeading(Base):
+class CVListHeading(Base, Common):
     __tablename__ = 'cvlistheadings'
     id = Column(Integer, primary_key=True)
     text = Column(Text)
@@ -98,7 +116,7 @@ class CVListHeading(Base):
                          secondary=itemized_lists_table)
 
 
-class CVColumns(Base):
+class CVColumns(Base, Common):
     __tablename__ = 'cvcolumns'
     id = Column(Integer, primary_key=True)
     name = Column(Text)
@@ -106,54 +124,14 @@ class CVColumns(Base):
                          secondary=column_items_table)
 
 
-group_column_table = Table('grouped_columns',
-                           Base.metadata,
-                           Column('group_id',
-                                  Integer,
-                                  ForeignKey('cvcolumngroup.id')),
-                           Column('cvcolumn_id',
-                                  Integer,
-                                  ForeignKey('cvcolumns.id')))
-
-
-class CVColumnGroup(Base):
+class CVColumnGroup(Base, Common):
     __tablename__ = 'cvcolumngroup'
     id = Column(Integer, primary_key=True)
     cvcolumns = relationship("CVColumns",
                              secondary=group_column_table)
 
 
-entry_items_table = Table('entry_items',
-                          Base.metadata,
-                          Column('entry_id',
-                                 Integer,
-                                 ForeignKey('cventry.id')),
-                          Column('item_id',
-                                 Integer,
-                                 ForeignKey('cvlistitems.id')))
-
-
-entry_columns_table = Table('entry_columns',
-                            Base.metadata,
-                            Column('entry_id',
-                                   Integer,
-                                   ForeignKey('cventry.id')),
-                            Column('cvcolumns_id',
-                                   Integer,
-                                   ForeignKey('cvcolumns.id')))
-
-
-entry_itemized_table = Table('entry_itemized',
-                             Base.metadata,
-                             Column('entry_id',
-                                    Integer,
-                                    ForeignKey('cventry.id')),
-                             Column('cvitemized_id',
-                                    Integer,
-                                    ForeignKey('cvlistheadings.id')))
-
-
-class CVEntry(Base):
+class CVEntry(Base, Common):
     __tablename__ = 'cventry'
     id = Column(Integer, primary_key=True)
     start_yr = Column(Integer)
@@ -173,47 +151,7 @@ class CVEntry(Base):
                               secondary=entry_itemized_table)
 
 
-section_entry_table = Table('section_entry',
-                            Base.metadata,
-                            Column('section_id',
-                                   Integer,
-                                   ForeignKey('cvsection.id')),
-                            Column('entry_id',
-                                   Integer,
-                                   ForeignKey('cventry.id')))
-
-
-section_items_table = Table('section_items',
-                            Base.metadata,
-                            Column('section_id',
-                                   Integer,
-                                   ForeignKey('cvsection.id')),
-                            Column('item_id',
-                                   Integer,
-                                   ForeignKey('cvlistitems.id')))
-
-
-section_columngroup_table = Table('section_columngroupss',
-                                  Base.metadata,
-                                  Column('section_id',
-                                         Integer,
-                                         ForeignKey('cvsection.id')),
-                                  Column('cvcolumngroups_id',
-                                         Integer,
-                                         ForeignKey('cvcolumngroup.id')))
-
-
-section_itemized_table = Table('section_itemized',
-                               Base.metadata,
-                               Column('section_id',
-                                      Integer,
-                                      ForeignKey('cvsection.id')),
-                               Column('cvitemized_id',
-                                      Integer,
-                                      ForeignKey('cvlistheadings.id')))
-
-
-class Section(Base):
+class Section(Base, Common):
 
     ''' Structure the sections:
         section
@@ -244,17 +182,7 @@ class Section(Base):
                               secondary=section_itemized_table)
 
 
-resume_section_table = Table('resume_sections',
-                             Base.metadata,
-                             Column('resume_id',
-                                    Integer,
-                                    ForeignKey('resumes.id')),
-                             Column('section_id',
-                                    Integer,
-                                    ForeignKey('cvsection.id')))
-
-
-class Resume(Base):
+class Resume(Base, Common):
     __tablename__ = 'resumes'
     id = Column(Integer, primary_key=True)
     style = Column(Text)

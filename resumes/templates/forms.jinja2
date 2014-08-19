@@ -1,0 +1,66 @@
+{% macro short_item_form() %}
+<form class="short item form" action="" method="post">
+  <div>
+    <input type="text" name="text" />
+    <input type="hidden" name="form_name" value="new_short_item" />
+  </div>
+  <div>
+  <input type="submit" value="Add item">
+  </div>
+</form>
+{% endmacro %}
+
+{% macro long_item_form() %}
+<form class="long item form" action="" method="post">
+  <div>
+    <textarea rows="2" cols="80" name="text" ></textarea>
+  </div>
+  <div>
+    <input type="hidden" name="form_name" value="new_long_item"/>
+    <input type="submit" value="Add item">
+  </div>
+</form>
+{% endmacro %}
+
+{% macro add_category() %}
+<form class="category form" action="" method="post">
+  <div>
+    <input type="text" name="label" />
+    <input type="hidden" name="form_name" value="new_category" />
+    <br>
+    <input type="submit" value="Add Category" />
+  </div>
+</form>
+{% endmacro %}
+
+{% macro select_item(class='', item_list) %}
+<fieldset class="{{class}}">
+  {% for item in item_list %}
+  {% if item.text %}
+  {% set out = item.text %}
+  {% elif item.label %}
+  {% set out = item.label %}
+  {% else %}
+  {% set out = "" %}
+  {% endif %}
+  <label class="{{class}} selection"><input type="checkbox"  name="{{class}}_{{item.id}}"/>{{out}}</label>
+  {% if class=='long' %}
+  <br>
+  {% endif %}
+  {% endfor %}
+</fieldset>
+{% endmacro %}
+
+{% macro delete_item(class='', item_list) %}
+<form class="{{class}} form delete" action="" method="post">
+  <div>
+    <input type="submit" value="Delete items">
+  </div>
+  <div class="{{class}} fields">
+    {{ select_item(class, item_list) }}
+  </div>
+  <input type="hidden" name="form_name" value="delete_{{class}}_item"/>
+</form>
+{% endmacro %}
+
+

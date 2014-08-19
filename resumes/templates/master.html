@@ -3,8 +3,11 @@
 <html xmlns='http://www.w3.org/1999/xhtml' xml:lang="en">
   <head>
     {% block head %}
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href={{request.static_url('resumes:static/style.css')}} />
     <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="keywords" content="Resume editor" />
+    <meta name="description" content="Resume webapp.  Keep track of resume items, construct resumes" />
     {% endblock %}
   </head>
   <body>

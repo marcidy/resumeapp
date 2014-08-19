@@ -1,0 +1,31 @@
+{% macro short_items_display(short_items) -%}
+<div class="short items display">
+  {% for item in short_items %}
+  <div class="short item">
+    {{ item.text }}
+  </div>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro long_items_display(long_items) -%}
+<div class="long items display">
+  <ul>
+    {% for item in long_items %}
+    <div class="long item">
+      <li><span class="item">{{ item.text }}</span></li>
+    </div>
+    {% endfor %}
+  </ul>
+</div>
+{%- endmacro %}
+
+{% macro categories_display(categories) -%}
+<div class="categories display">
+  {% for category in categories %}
+  <div class="category item">
+    {{ category.label }}
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}

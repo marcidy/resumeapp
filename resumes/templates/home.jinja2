@@ -1,0 +1,40 @@
+{% extends "master.html" %}
+{% block title %}Resume{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" 
+href="static/style.css"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet"
+href="static/ie6.css"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<![endif]-->
+{% endblock %}
+{% block content %}
+{% import 'templates/forms.jinja2' as forms %}
+<div class="wrap">
+  <div class="main welcome">
+    <div class="main title">
+      Derezzed Resume Builder
+    </div>
+    <div class="main description">
+      Deconstructing and reconstructing your resume for more results in this post modern world.
+    </div>
+  </div>
+  <div class="main options">
+    {% if user %}
+    {{ forms.main_options() }}
+    {% else %}
+    <a href='/tour'>Take a tour</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+
+

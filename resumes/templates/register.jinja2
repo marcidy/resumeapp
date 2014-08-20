@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+{% block title %}Resume{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" 
+href="static/style.css"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet"
+href="static/ie6.css"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<![endif]-->
+{% endblock %}
+{% block content %}
+{% import 'templates/forms.jinja2' as forms %}
+<div class="wrap">
+  <div class="left-wrap">
+    <div class="signup header">
+      Sign up with LinkedIn
+    </div>
+    <div>
+      {{ forms.linkedin() }}
+    </div>
+  </div>
+  <div class="right-wrap">
+    <div class="signup header">
+      Register with email only
+    </div>
+    <div>
+      {{ forms.email_reg() }}
+    </div>
+  </div>
+</div>
+{% endblock %}
+

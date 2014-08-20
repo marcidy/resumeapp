@@ -133,15 +133,74 @@ input[type=button] {width: auto; overflow: visible;}
 .clearfix { zoom: 1; } 
 body {
     background: gray;
+    margin 0;
+    padding 0;
 }
 .wrap {
     width: 80%;
+    min-height: 500px;
     margin: 0 10%;
     padding: 25px;
     background: white;
+    clear: both;
+}
+input[type=submit]{
+    background: #F33333;
+    border: 0 none;
+    color: white;
+    font-weight: bold;
+    margin: 0px;
+    padding: 3px 5px;
+    text-align: center;
+}
+a{
+    background: #F33333;
+    border: 0 none;
+    color: white;
+    font-weight: bold;
+    margin: 0px;
+    padding: 3px 5px;
+    text-align: center;
+    text-decoration: none;
+}
+.login.box{
+    width: 15%;
+    float: right;
+    overflow: hidden;
+    font-size: 11px;
+    margin-right: 10px;
+}
+.login.box > form > label{
+    float: left;
+    color: white;
+    font-weight: bold;
+}
+.login.box > form > .right{
+    float: right;
+}
+a.right {
+    position: relative;
+    top: 2px;
+    margin: auto
+}
+.main.title{
+    color: white;
+    background: #F33333;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    width: 60%;
+    margin: 0% 20%;
+}
+.main{
+    text-align: center;
+    margin: 10px 0px;
+}
+.main.option{
+    text-align: left;
+    margin-top: 10px;
 }
 .short.items, .category.items{
-    overflow: hidden;
     clear: both;
 }
 .items.header, .categories.header{
@@ -168,8 +227,15 @@ form.short.item.form > div > input[type=text]{
     margin: 5px 0px;
 }
 .long.items, .category.items{
-    margin: 10px 0 0 0;
+    margin: 2px 0 0 0;
     clear: both;
+}
+.long.fields{
+    margin: 10px 0;
+    padding: 2px;
+    border: 1px solid black;
+    overflow-y: auto;
+    height: 150px;
 }
 .long.item{
     margin: 0px 15px;
@@ -194,15 +260,4 @@ span.item{
 .short.selection, .category.selection{
     width: 25%;
     float: left;
-}
-input[type=submit]{
-    background: #F33333;
-    border: 0 none;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    margin: 0px;
-    padding: 3px 5px;
-    text-align: center;
-    width: 150px;
 }

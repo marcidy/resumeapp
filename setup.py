@@ -11,6 +11,7 @@ with open(os.path.join(here, 'README.txt')) as f:
 requires = [
     'Paste',
     'alembic',
+    'bcrypt',
     'jinja2',
     'pyramid',
     'pyramid_jinja2',

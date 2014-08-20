@@ -11,6 +11,22 @@
     {% endblock %}
   </head>
   <body>
+    {% import 'templates/forms.jinja2' as forms %}
+    {% if user %}
+    <div class="login box">
+      <a href="/users/{{user}}">{{user}}</a>
+      <a href='/logout'>Logout</a>
+    </div>
+    {% else %}
+    <div class="login">
+      {{ forms.login() }}
+    </div>
+    {% endif %}
+    {% if message %}
+    <div class="message">
+      {{message}}
+    </div>
+    {% endif %}
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
       {% block footer %}

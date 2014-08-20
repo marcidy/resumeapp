@@ -14,8 +14,8 @@ def came_from(request):
 
 def new_item(clazz, request):
     text = request.params['text']
-
-    item = clazz(text=text)
+    username = request.authenticated_userid()
+    item = clazz(text=text, user_id=username)
     with transaction.manager:
         db.add(item)
 
@@ -64,13 +64,16 @@ def new_long_item(request):
 
 
 def new_category(request):
+    username = request.authenticated_userid()
     label = request.params['label']
-    cat = ItemCategories(label=label)
+    cat = ItemCategories(label=label,
+                         user_id=username)
 
     with transaction.manager:
         db.add(cat)
 
     return came_from(request)
+
 
 def route_form(form_name, request):
     return FORM_REGISTER[form_name](request)

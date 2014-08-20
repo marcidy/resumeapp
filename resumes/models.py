@@ -4,6 +4,7 @@ from sqlalchemy import (Column,
                         Integer,
                         String,
                         ForeignKey,)
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
 from resumes.associations import (itemized_lists_table,
                                   column_items_table,
@@ -23,6 +24,10 @@ from resumes.associations import (itemized_lists_table,
 
 class Common(object):
     logical_del = Column(Integer)
+
+    @declared_attr
+    def user_id(cls):
+        return Column(Integer, ForeignKey('users.id'))
 
 
 class Person(Base, Common):

@@ -10,6 +10,7 @@ def run():
     config = RawConfigParser()
     config.read('./config.cfg')
     db = init_db_from_config(config)
+    username = u'marcidy'
 
     address = md.Address(street_num='28',
                          street_name='Sickles',
@@ -17,34 +18,41 @@ def run():
                          apt_num='A16',
                          city='New York City',
                          state='NY',
-                         zip=10040)
+                         zip=10040,
+                         user_id=username)
 
     phone = md.Phone(type='mobile',
                      country=1,
                      area_code=508,
                      prefix=364,
-                     line_number=7529)
+                     line_number=7529,
+                     user_id=username)
 
     me = md.Person(first_name='Matthew',
                    last_name='Arcidy',
                    email='marcidy@gmail.com',
                    linkedin='www.linkedin.com/in/marcidy',
                    address=address,
-                   phone=[phone])
+                   phone=[phone],
+                   user_id=username)
 
     sections = []
     sections.append(md.Section(title='Objectives',
-                               description=objectives))
+                               description=objectives,
+                               user_id=username))
 
     acs_list_items = [
         md.CVListItem(
             text='Design operation and business '
             'process for a Top 4 consulting firm\'s '
             'crowdsourcing unit, including work-flows '
-            'and analytics'), md.CVListItem(
+            'and analytics',
+            user_id=username),
+        md.CVListItem(
             text='Investigate and model statistical '
             'relationship between economic news events '
-            'and volatility indices')]
+            'and volatility indices',
+            user_id=username)]
 
     acs_corp = md.CVEntry(start_yr=2013,
                           title='Founder',
@@ -54,80 +62,105 @@ def run():
                           description='Provide consultation and innovation '
                           'services for any problems related to the function '
                           'and business of computation',
-                          cvlistitems=acs_list_items)
+                          cvlistitems=acs_list_items,
+                          user_id=username)
 
     jpm_cvlist_items = [md.CVListItem(text='Develop, implement, and support '
                                       'systems for risk, profit and loss, and '
-                                      'cash flow projection calculations')]
+                                      'cash flow projection calculations',
+                                      user_id=username)]
 
     jrm_items = [md.CVListItem(text='Lead change control for business '
-                               'critical infrastructure'),
+                               'critical infrastructure',
+                               user_id=username),
                  md.CVListItem(text='Organized transition from quarterly '
-                               'release cycle to Continuous Integration'),
-                 md.CVListItem(text='Prioritized git branches and merges')]
+                               'release cycle to Continuous Integration',
+                               user_id=username),
+                 md.CVListItem(text='Prioritized git branches and merges',
+                               user_id=username)]
     jpm_rel_mgmt = md.CVListHeading(text='Release Management',
-                                    items=jrm_items)
+                                    items=jrm_items,
+                                    user_id=username)
 
     jpdm_items = [md.CVListItem(text='Desk-wide ownership for Risk and '
-                                'Profit/Loss(PL) reporting'),
+                                'Profit/Loss(PL) reporting',
+                                user_id=username),
                   md.CVListItem(text='Re-engineered QA infrastructure to '
                                 'add first-level break analysis to automated '
-                                'tests'),
+                                'tests',
+                                user_id=username),
                   md.CVListItem(text='Developed mathematical approximation '
-                                'for regulatory risk requirement'), ]
+                                'for regulatory risk requirement',
+                                user_id=username), ]
     jpm_prd_mgmt = md.CVListHeading(text='Product Management',
-                                    items=jpdm_items)
+                                    items=jpdm_items,
+                                    user_id=username)
 
     jpjm_items = [md.CVListItem(text='Managed interface between '
                                 'management\'s Waterfall and engineer\'s '
-                                'Agile project management styles'),
+                                'Agile project management styles',
+                                user_id=username),
                   md.CVListItem(text='Overhauled change controls and change '
                                 'management for compatible with Agile and '
-                                'Continuous Integration projects'),
+                                'Continuous Integration projects',
+                                user_id=username),
                   md.CVListItem(text='Designed, developed, delivered, and '
                                 'tested Front to Back PL and Risk reporting '
                                 'python framework requiring computationally '
                                 'correct, performant, and reusable reporting '
                                 'modules written in a proprietary framework '
                                 'called Athena, utilizing a customized '
-                                'object oriented database'),
+                                'object oriented database',
+                                user_id=username),
                   md.CVListItem(text='Determined minimum acceptable scope '
                                 'by limiting feature creep and challenging '
                                 'stakeholders in order to meet aggressive '
-                                'deadlines'), ]
+                                'deadlines',
+                                user_id=username), ]
     jpm_prj_mgmt = md.CVListHeading(text='Project Management',
-                                    items=jpjm_items)
+                                    items=jpjm_items,
+                                    user_id=username)
 
     jcrm_items = [md.CVListItem(text='Encouraged team adoption of Agile '
-                                'methodologies'),
+                                'methodologies',
+                                user_id=username),
                   md.CVListItem(text='Rebuilt team\'s reputation after an '
-                                'implementation failure'),
+                                'implementation failure',
+                                user_id=username),
                   md.CVListItem(text='Worked up management chain and across '
                                 'business lines to develop critical '
-                                'production capabilities'),
+                                'production capabilities',
+                                user_id=username),
                   md.CVListItem(text='Assertive and confident when descoping, '
-                                'deprioritizing'),
+                                'deprioritizing',
+                                user_id=username),
                   md.CVListItem(text='Achieved reputation for creatively '
                                 'solving problems and dealing with difficult '
-                                'personalities'), ]
+                                'personalities',
+                                user_id=username), ]
     jpm_crm_mgmt = md.CVListHeading(text='Relationship Management',
-                                    items=jcrm_items)
+                                    items=jcrm_items,
+                                    user_id=username)
 
     jqal_items = [
         md.CVListItem(
-            text='Motivated adoption of test driven design'),
+            text='Motivated adoption of test driven design',
+            user_id=username),
         md.CVListItem(
             text='Improved pre-release tests which '
                  'decreased the number of false positives '
                  'and increased information content of failure '
-                 'reports, enabling for faster error analysis'),
+                 'reports, enabling for faster error analysis',
+            user_id=username),
         md.CVListItem(
             text='Established test and release '
                  'procedures for new reporting module which '
-                 'went live with zero defects in production')]
+                 'went live with zero defects in production',
+            user_id=username)]
 
     jpm_qal_mgmt = md.CVListHeading(text='Quality Management',
-                                    items=jqal_items)
+                                    items=jqal_items,
+                                    user_id=username)
 
     jpm_cvitemized = [jpm_rel_mgmt,
                       jpm_prd_mgmt,
@@ -143,37 +176,40 @@ def run():
                      state='NY',
                      description='System Strategy and Implementation',
                      cvlistitems=jpm_cvlist_items,
-                     cvitemized=jpm_cvitemized)
+                     cvitemized=jpm_cvitemized,
+                     user_id=username)
 
     mx_cvlist_items = [md.CVListItem(text='Managed a portfolio of software '
-                                     'implementation projects'),
+                                     'implementation projects',
+                                     user_id=username),
                        md.CVListItem(text='Represented software products '
                                      'internally and externally to educate '
-                                     'users and promote sales')]
+                                     'users and promote sales',
+                                     user_id=username)]
 
     mrm_items = [
         md.CVListItem(
             text='Migrated several client specific products '
-            'to single master branch'), md.CVListItem(
+            'to single master branch', user_id=username), md.CVListItem(
             text='Approved final sign-off for client '
-            'deliverables'), md.CVListItem(
+            'deliverables', user_id=username), md.CVListItem(
             text='Rejected low quality developments and '
-            'releases')]
+            'releases', user_id=username)]
     mx_rel_mgmt = md.CVListHeading(text='Release Management',
                                    items=mrm_items)
 
-    mpdm_items = [md.CVListItem(text='Financing Product Manager(Americas)'),
-                  md.CVListItem(text='Debt Market Product Specialist'),
+    mpdm_items = [md.CVListItem(text='Financing Product Manager(Americas)', user_id=username),
+                  md.CVListItem(text='Debt Market Product Specialist', user_id=username),
                   md.CVListItem(text='Self directed research to gain edge in '
-                                'product market'),
+                                'product market', user_id=username),
                   md.CVListItem(text='Specified system module re-engineering '
-                                'to meet client and market practices'),
+                                'to meet client and market practices', user_id=username),
                   md.CVListItem(text='Demonstrated products to prospective '
-                                'and existing clients'),
+                                'and existing clients', user_id=username),
                   md.CVListItem(text='Pitched new modules and architecture '
                                 'which improved testing work-flows, reduce '
                                 'human costs, and improved client '
-                                'satisfaction'), ]
+                                'satisfaction', user_id=username), ]
     mx_prd_mgmt = md.CVListHeading(text='Product Management',
                                    items=mpdm_items)
 
@@ -181,41 +217,41 @@ def run():
                                 'products implementation for my client '
                                 'portfolio, including UI/UX, Risk and PL '
                                 'reporting, automatic trade booking, '
-                                'and pre- and post-trade work-flows'),
+                                'and pre- and post-trade work-flows', user_id=username),
                   md.CVListItem(text='Redesign and implement new testing '
                                 'processes to remove test obstacles, decrease '
                                 'testing time, and increase test coverage '
-                                'and quality'),
+                                'and quality', user_id=username),
                   md.CVListItem(text='Design and Implementation of UI/UX '
-                                'modules on-site for clients')]
+                                'modules on-site for clients', user_id=username)]
     mx_prj_mgmt = md.CVListHeading(text='Project Management',
                                    items=mpjm_items)
 
     mcrm_items = [
         md.CVListItem(text='Gained reputation for handling difficult '
-                      'clients and turning around unhappy users'), md.CVListItem(
+                      'clients and turning around unhappy users', user_id=username), md.CVListItem(
             text='Cooperated on multiple client and '
-            'product teams'), md.CVListItem(
+            'product teams', user_id=username), md.CVListItem(
             text='Managed resource competition and client '
-            'priorities'), md.CVListItem(
+            'priorities', user_id=username), md.CVListItem(
             text='Provided agency for client or Murex '
-            'to optimize utilization of resources'), md.CVListItem(
+            'to optimize utilization of resources', user_id=username), md.CVListItem(
             text='Resolve conflicts between product '
-            'development and project deliverables'), md.CVListItem(
+            'development and project deliverables', user_id=username), md.CVListItem(
             text='Query end users and develop feedback '
-            'process to enhance overall product'), md.CVListItem(
+            'process to enhance overall product', user_id=username), md.CVListItem(
             text='Negotiated with end users to gain '
-            'final approval for project deliverables'), ]
+            'final approval for project deliverables', user_id=username), ]
     mx_crm_mgmt = md.CVListHeading(text='Relationship Management',
                                    items=mcrm_items)
 
     mqal_items = [
         md.CVListItem(text='Write and automate tests for hard-to-automate '
-                      'application functionality'),
+                      'application functionality', user_id=username),
         md.CVListItem(text='Advocate unit testing, which was against '
-                      'philosophy at the time'),
+                      'philosophy at the time', user_id=username),
         md.CVListItem(text='Decreased testing time across company by '
-                      'standardizing processes')]
+                      'standardizing processes', user_id=username)]
 
     mx_qal_mgmt = md.CVListHeading(text='Quality Management',
                                    items=mqal_items)
@@ -234,21 +270,22 @@ def run():
                     state='NY',
                     description='System Strategy and Implementation',
                     cvlistitems=mx_cvlist_items,
-                    cvitemized=mx_cvitemized)
+                    cvitemized=mx_cvitemized,
+                    user_id=username)
 
     edf_cvlist_items = [
         md.CVListItem(
             text='Built and maintained compute '
-            'clusters for physics applications'),
+            'clusters for physics applications', user_id=username),
         md.CVListItem(
             text='Designed, prototyped, and built '
             'waveform digitizer for particle '
-            'detectors'),
+            'detectors', user_id=username),
         md.CVListItem(
             text='Designed and fabricated aluminum '
-            'enclosures and face-plates using AutoCAD'),
+            'enclosures and face-plates using AutoCAD', user_id=username),
         md.CVListItem(
-            text='One of 4 full-time Engineers')]
+            text='One of 4 full-time Engineers', user_id=username)]
 
     edf = md.CVEntry(start_yr=2003,
                      end_yr=2007,
@@ -258,25 +295,27 @@ def run():
                      state='MA',
                      description='Ran a portfolio of engineering projects of '
                      'varying scope and scale',
-                     cvlistitems=edf_cvlist_items)
+                     cvlistitems=edf_cvlist_items,
+                     user_id=username)
 
     experience = md.Section(title="Experience",
                             cventry=[acs_corp,
                                      jpm,
                                      mx,
-                                     edf])
+                                     edf],
+                            user_id=username)
     sections.append(experience)
 
     mas_cv_cols = [
         md.CVColumns(
-            items=[md.CVItems(text='Stochastic Models'),
-                   md.CVItems(text='Analytics and Forecasts'), ]),
+            items=[md.CVItems(text='Stochastic Models', user_id=username),
+                   md.CVItems(text='Analytics and Forecasts', user_id=username), ]),
         md.CVColumns(
-            items=[md.CVItems(text='Decision Theory'),
-                   md.CVItems(text='Real Options'), ]),
+            items=[md.CVItems(text='Decision Theory', user_id=username),
+                   md.CVItems(text='Real Options', user_id=username), ]),
         md.CVColumns(
-            items=[md.CVItems(text='Operations Research'),
-                   md.CVItems(text='Optimization'), ])
+            items=[md.CVItems(text='Operations Research', user_id=username),
+                   md.CVItems(text='Optimization', user_id=username), ])
     ]
 
     mas = md.CVEntry(
@@ -289,15 +328,16 @@ def run():
         gpa='3.4',
         description='Study the tools and models of operational and investment '
         'decisions under uncertain conditions',
-        cvcolumns=mas_cv_cols)
+        cvcolumns=mas_cv_cols,
+        user_id=username)
 
     ugr_cv_cols = [
         md.CVColumns(
-            items=[md.CVItems(text='Very Large System Design'),
-                   md.CVItems(text='Software Engineering'), ]),
+            items=[md.CVItems(text='Very Large System Design', user_id=username),
+                   md.CVItems(text='Software Engineering', user_id=username), ]),
         md.CVColumns(
-            items=[md.CVItems(text='Control Systems'),
-                   md.CVItems(text='Project Management'), ]),
+            items=[md.CVItems(text='Control Systems', user_id=username),
+                   md.CVItems(text='Project Management', user_id=username), ]),
     ]
 
     ugr = md.CVEntry(
@@ -310,98 +350,113 @@ def run():
         gpa='3.2',
         honors='Cum Laude',
         description='Theory and application of electrical and electronic systems',
-        cvcolumns=ugr_cv_cols)
+        cvcolumns=ugr_cv_cols,
+        user_id=username)
 
     education = md.Section(title='Education',
-                           cventry=[mas, ugr])
+                           cventry=[mas, ugr],
+                           user_id=username)
     sections.append(education)
 
     tech1_cv_cols = [
         md.CVColumns(
             name='Microsoft',
-            items=[md.CVItems(text='Outlook'),
-                   md.CVItems(text='Excel+VBA'),
-                   md.CVItems(text='Project'),
-                   md.CVItems(text='Visio'),
-                   md.CVItems(text='Word'), ]),
+            items=[md.CVItems(text='Outlook', user_id=username),
+                   md.CVItems(text='Excel+VBA', user_id=username),
+                   md.CVItems(text='Project', user_id=username),
+                   md.CVItems(text='Visio', user_id=username),
+                   md.CVItems(text='Word', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name='Linux',
-            items=[md.CVItems(text='Debian, LFS'),
-                   md.CVItems(text='LibreOffice'),
-                   md.CVItems(text='LaTeX, Vim'), ]),
+            items=[md.CVItems(text='Debian, LFS', user_id=username),
+                   md.CVItems(text='LibreOffice', user_id=username),
+                   md.CVItems(text='LaTeX, Vim', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name='Database',
-            items=[md.CVItems(text='Postgresql'),
-                   md.CVItems(text='Oracle'),
-                   md.CVItems(text='SQLite'),
-                   md.CVItems(text='MongoDB'),
-                   md.CVItems(text='HDF5'), ]),
+            items=[md.CVItems(text='Postgresql', user_id=username),
+                   md.CVItems(text='Oracle', user_id=username),
+                   md.CVItems(text='SQLite', user_id=username),
+                   md.CVItems(text='MongoDB', user_id=username),
+                   md.CVItems(text='HDF5', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name='CAD',
-            items=[md.CVItems(text='OrCAD'),
-                   md.CVItems(text='AutoCAD'),
-                   md.CVItems(text='FreeCAD'), ]),
+            items=[md.CVItems(text='OrCAD', user_id=username),
+                   md.CVItems(text='AutoCAD', user_id=username),
+                   md.CVItems(text='FreeCAD', user_id=username), ],
+            user_id=username),
     ]
 
     tech2_cv_cols = [
         md.CVColumns(
             name='Programming',
-            items=[md.CVItems(text='Python'),
-                   md.CVItems(text='R'),
-                   md.CVItems(text='C/C++/Java'), ]),
+            items=[md.CVItems(text='Python', user_id=username),
+                   md.CVItems(text='R', user_id=username),
+                   md.CVItems(text='C/C++/Java', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name='Scripting',
-            items=[md.CVItems(text='bash'),
-                   md.CVItems(text='HTML, CSS, XML'),
-                   md.CVItems(text='Javascript/JQuery'), ]),
+            items=[md.CVItems(text='bash', user_id=username),
+                   md.CVItems(text='HTML, CSS, XML', user_id=username),
+                   md.CVItems(text='Javascript/JQuery', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name='Source Control',
-            items=[md.CVItems(text='git'),
-                   md.CVItems(text='svn'), ]),
+            items=[md.CVItems(text='git', user_id=username),
+                   md.CVItems(text='svn', user_id=username), ],
+            user_id=username),
     ]
 
     pythn_cv_cols = [
         md.CVColumns(
             name='Python Packages',
-            items=[md.CVItems(text='pyramid'),
-                   md.CVItems(text='sqlalchemy'),
-                   md.CVItems(text='chameleon'), ]),
+            items=[md.CVItems(text='pyramid', user_id=username),
+                   md.CVItems(text='sqlalchemy', user_id=username),
+                   md.CVItems(text='chameleon', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name=None,
-            items=[md.CVItems(text='distutils'),
-                   md.CVItems(text='nosetests'),
-                   md.CVItems(text='coverage'), ]),
+            items=[md.CVItems(text='distutils', user_id=username),
+                   md.CVItems(text='nosetests', user_id=username),
+                   md.CVItems(text='coverage', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name=None,
-            items=[md.CVItems(text='pandas'),
-                   md.CVItems(text='matplotlib'),
-                   md.CVItems(text='numpy/scipy'),
-                   md.CVItems(text='pytables'), ]),
+            items=[md.CVItems(text='pandas', user_id=username),
+                   md.CVItems(text='matplotlib', user_id=username),
+                   md.CVItems(text='numpy/scipy', user_id=username),
+                   md.CVItems(text='pytables', user_id=username), ],
+            user_id=username),
         md.CVColumns(
             name=None,
-            items=[md.CVItems(text='selenium'),
-                   md.CVItems(text='subprocess'),
-                   md.CVItems(text='multiprocess'), ]),
+            items=[md.CVItems(text='selenium', user_id=username),
+                   md.CVItems(text='subprocess', user_id=username),
+                   md.CVItems(text='multiprocess', user_id=username), ],
+            user_id=username),
     ]
-    tech_cols = [md.CVColumnGroup(cvcolumns=tech1_cv_cols)]
-    tech_cols.append(md.CVColumnGroup(cvcolumns=tech2_cv_cols))
-    tech_cols.append(md.CVColumnGroup(cvcolumns=pythn_cv_cols))
+    tech_cols = [md.CVColumnGroup(cvcolumns=tech1_cv_cols, user_id=username)]
+    tech_cols.append(md.CVColumnGroup(cvcolumns=tech2_cv_cols, user_id=username))
+    tech_cols.append(md.CVColumnGroup(cvcolumns=pythn_cv_cols, user_id=username))
 
     tech = md.Section(title='Technology',
-                      cvcolumngroups=tech_cols)
+                      cvcolumngroups=tech_cols,
+                      user_id=username)
     sections.append(tech)
 
     pers_list = [
         md.CVListItem(
-            text='Ask me about my website idea!'),
+            text='Ask me about my website idea!', user_id=username),
         md.CVListItem(
             text='I love to ride my bikes (plural, though '
             'not at the same time), whether it\'s banging '
             'around the city, up to Bear Mountain, or out to '
-            'Montauk.  Cycling is very much my Zen garden.'), ]
+            'Montauk.  Cycling is very much my Zen garden.', user_id=username), ]
 
     personal = md.Section(title='Personal',
-                          cvlistitems=pers_list)
+                          cvlistitems=pers_list,
+                          user_id=username)
 
     sections.append(personal)
 
@@ -410,7 +465,8 @@ def run():
         color='red',
         title='Kickstarter\'s VP of Engineering',
         footnotestyle='symbols',
-        sections=sections)
+        sections=sections,
+        user_id=username)
 
     me.resumes = [resume]
 

@@ -83,10 +83,10 @@
   <a class="main option" href="/resumes/new">Start new Resume</a><br>
 </div>
 <div class="main option">
-  <a class="main option" href="/resumes/edit">Edit existing Resume</a><br>
+  <a class="main option" href="/resumes/view">Edit existing Resume</a><br>
 </div>
 <div class="main option">
-  <a class="main option" href="/items/edit">Edit stored items</a><br>
+  <a class="main option" href="/items/edit">Edit tidbits</a><br>
 </div>
 {% endmacro %}
 
@@ -103,4 +103,20 @@
   <label>Password: <input type="password" name="password_check"/></label>
   <input class="register" type="submit" name="form.submitted" value="Register">
 </form>
+{% endmacro %}
+
+{% macro select_resumes(resumes, request) %}
+<div class="resume display">
+  {% for resume in resumes %}
+  <div class="resume display">
+    <div class="resume display title">
+      <a href="/resumes/{{resume.id|string}}/edit">{{resume.title}}</a>
+    </div>
+    <div class="resume display preview">
+      <a class="img-wrap" href="/resumes/{{resume.id|string}}/edit"><img class="resume display preview" width="220"
+        src={{request.static_url('resumes:static/img/resumes/' + resume.id|string + '/preview.png')}} /></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endmacro %}

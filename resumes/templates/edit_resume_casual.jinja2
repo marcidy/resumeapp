@@ -1,0 +1,210 @@
+{% extends "templates/master.html" %}
+{% block title %}Resumes{% endblock %}
+{{ super() }}
+{% block head %}
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="keywords" content="Matthew Arcidy Resume" />
+<meta name="description" content="Matthew Arcidy's Resume" />
+<link rel="stylesheet" 
+href="{{request.static_url('resumes:static/'+resume.style+'.css')}}"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet"
+href="static/ie6.css"
+type="text/css" 
+media="screen" 
+charset="utf-8" />
+<![endif]-->
+<script src="{{request.static_url('resumes:scripts/jquery-1.11.1.js')}}"></script>
+{% endblock %}
+{% block content %}
+<div id="metadata" 
+  resume_id={{resume.id}} />
+<div id="wrap">
+  <div id="header">
+    <div id="photo">
+      <!-- img alt="Photo" src="resume.eps" /-->
+    </div>
+    <div id="name">
+      {{ resume.person.first_name }} <span id="last-name">{{ resume.person.last_name }}</span>
+    </div>
+    <div id="header-sep">
+      <hr />
+    </div>
+    <div id="title">
+      {{ resume.title }}
+    </div>
+  </div>
+  <div class="sections">
+    {% for section in resume.sections %}
+    <div class="section" id="section_{{section.id}}">
+      <div class="section title">
+        {{ section.title }}
+      </div>
+      {% if section.description %}
+      <div class="section description">
+        {{ section.description if section.description }}
+      </div>
+      {% endif %}
+      {% if section.cventry %}
+      <div class="cventrys">
+        {% for cventry in section.cventry %}
+        <div class="cventry wrap" id="cventry_{{cventry.id}}">
+          <div class="cventry mainline">
+            <div class="cventry years">
+              {{ cventry.start_yr }}&mdash;{{ cventry.end_yr if cventry.end_yr else 'Present' }}
+            </div>
+            <div class="cventry title">
+              {{ cventry.title }}
+            </div>
+            <div class="cventry institution">
+              {{ cventry.institution }}
+            </div>
+            <div class="cventry location">
+              {{ cventry.city }}, {{ cventry.state }}
+            </div>
+            <div class="cventry gpa">
+              {{ '%s' % cventry.gpa if cventry.gpa  }}{{ ', %s' % cventry.honors if cventry.honors }}
+            </div>
+          </div>
+          <div class="cventry description">
+            {{ cventry.description }}
+          </div>
+          {% if cventry.cvlistitems %}
+          <div class="cventry cvlistitems">
+            <ul class="cventry cvlistitems">
+              {% for item in cventry.cvlistitems %}
+              <li class="cventry cvlistitem"><span class="cvlistitem" id="cvlistitem_{{item.id}}">{{ item.text }}</span></li>
+              {% endfor %}
+            </ul>
+          </div> <!-- End of CVEntry CVListitem -->
+          {% endif %}
+          {% if cventry.cvcolumns %}
+          <div class="cventry cvcolumns">
+            {% for col in cventry.cvcolumns %}
+            <div class="cventry cvcolumn" id="cvcolumn_{{col.id}}">
+              <span class="cventry column_name">{{ col.name if col.name  }}</span>
+              {% for item in col.items %}
+              <div class="cventry cvcolumn_item" id="cvcolumn_item_{{item.id}}">
+                {{ item.text }}
+              </div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div> <!-- End of CVEntry CVColumns -->
+          {% endif %}
+          {% if cventry.cvitemized %}
+          <div class="cventry cvitemized">
+            {% for heading in cventry.cvitemized %}
+            <ul class="cventry cvitemized">
+              <li>
+              <span class="cventry cvitemized heading" id="cvitemized_heading_{{heading.id}}">
+                {{ heading.text if heading.text }}
+              </span>
+              {% for item in heading.items %}
+              </li>
+              <ul class="cventry cvitemized item">
+                <li class="cventry cvitemized item">
+                <span class="cventry cvitemized item" id="cvitemized_item_{{item.id}}">
+                  {{ item.text }}
+                </span>
+                </li>
+                {% endfor %}
+              </ul>
+            </ul>
+            {% endfor %}
+          </div> <!-- End of CVEntry Itemized -->
+          {% endif %}
+        </div> <!-- End of CVEntry -->
+        {% endfor %}
+      </div> <!--End of CVEntries -->
+      {% endif %}
+      {% if section.cvlistitems %}
+      <div class="section cvlistitems">
+        {% for item in section.cvlistitems %}
+        <div class="section cvlistitems item" id="cvlistitem_{{item.id}}">
+          {{ item.text }}
+        </div>
+        {% endfor %}
+      </div> <!-- End of Section CVListItems -->
+      {% endif %}
+      {%- if section.cvcolumngroups %}
+      <div class="section cvcolumngroups wrap">
+        {% for group in section.cvcolumngroups %}
+        <div class="section cvcolumngroups group" id="cvcolumngroup_{{group.id}}">
+          {% for col in group.cvcolumns %}
+          <div class="section cvcolumngroups column" id="cvcolumn_{{col.id}}">
+            <div class="section cvcolumngroups col_name">
+              {% if col.name %}
+              {{ col.name if col.name }}
+              {% else %}
+              {{ ' ' }}</br >
+              {% endif %}
+            </div>
+            <ul class="section cvcolumngroup items" >
+              {% for item in col.items %}
+              <li class="section cvcolumngroup item" id="cvcolumn_item_{{item.id}}">{{ item.text }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div> <!-- End of Section CVColumnGroup -->
+        <br>
+        {% endfor %} 
+      </div> <!-- End of Section CVCoolumnGroups -->
+      {% endif %}
+      {% if section.cvitemized %}
+      <div class="section cvitemized">
+        {% for heading in cvitemized %}
+        <div class="section cvitemized heading" id="cvitemized_heading_{{heading.id}}">
+          {{ '\item %s'% heading.text if heading.text }}
+        </div>
+        {% if heading.items %}
+        <div class="section cvitemized items">
+          {% for item in heading.items %}
+          <div class="section cvitemized item" id="cvitemized_item_{{item.id}}">
+            {{ item.text }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div> <!-- End of Section CVItemized -->
+      {% endif %}
+      <br>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="footer">
+    <div class="street-addr">
+      {{ resume.person.address.street_num }} {{ resume.person.address.street_name }} {{ resume.person.address.street_type }} {{ resume.person.address.apt_num }}
+    </div>
+    <div class="street-addr">
+      {{ resume.person.address.city }}, {{ resume.person.address.state }} {{ resume.person.address.zip }}
+    </div>
+    {% for phone in resume.person.phone %}
+    <div class="phone">
+      {{ phone.country }} {{ '(' }}{{ phone.area_code }}{{ ')' }} {{ phone.prefix }}.{{ phone.line_number }}
+    </div>
+    {% endfor %}
+    <div id="email-addr">
+      <a href='mailto://{{ resume.person.email }}'>{{ resume.person.email }}</a>
+    </div>
+    <div class="social">
+      <a href='http://{{ resume.person.linkedin }}'>{{ resume.person.linkedin }}</a>
+    </div>
+  </div>
+</div>
+<script src={{request.static_url('resumes:scripts/resumes.js')}}>
+</script>{% endblock %}
+
+
+<!-- {#
+\moderncvcolor{{{ resume.color }}}
+{% if resume.footnotestyle == 'symbols' %}
+{{ resume.ft_symbols( }})
+{% endif %}
+#} -->
+

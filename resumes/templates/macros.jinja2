@@ -29,3 +29,61 @@
   {% endfor %}
 </div>
 {% endmacro %}
+
+{% macro display_resumes(resumes, preview=True, request=False) %}
+{% if resumes %}
+<div class="resumes display">
+  {% for resume in resumes %}
+  <div class="resume display">
+    <div class="resume display title">
+      <a class="resume display" href="/resumes/{{resume.id}}/edit">{{resume.title}}</a>
+    </div>
+    {% if preview and request%}
+    <div class="resume display preview">
+    <img class="resume display preview" alt="{{resume.title}} preview" width="220"
+      src={{request.static_url('resumes:static/img/resumes/' + resume.id|string + '/preview.png')}} />
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
+
+
+{% macro display_styles(styles, preview=True, request=False) %}
+{% if styles %}
+<div class="styles display">
+  {% for style in styles %}
+  <div class="style display">
+    <div class="style display title">
+      <a class="style display" href="/resumes/new/{{style}}/edit">{{style}}</a>
+    </div>
+    {% if preview and request%}
+    <div class="style display preview">
+    <img class="style display preview" alt="{{style}} preview" width="220"
+      src={{request.static_url('resumes:static/img/styles/' + style + '.png')}} />
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
+
+
+{% macro select_resumes(resumes, request) %}
+<div class="resume display">
+  {% for resume in resumes %}
+  <div class="resume display">
+    <div class="resume display title">
+      <a href="/resumes/{{resume.id|string}}/edit">{{resume.title}}</a>
+    </div>
+    <div class="resume display preview">
+      <a class="img-wrap" href="/resumes/{{resume.id|string}}/edit"><img class="resume display preview" width="220"
+        src={{request.static_url('resumes:static/img/resumes/' + resume.id|string + '/preview.png')}} /></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}

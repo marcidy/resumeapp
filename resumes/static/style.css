@@ -261,3 +261,32 @@ span.item{
     width: 25%;
     float: left;
 }
+.resumes.display {
+    overflow-y: auto;
+    max-height: 800px;
+}
+.resume.display {
+    float: left;
+}
+div.resume.display.title {
+    position: relative;
+    top: 65px;
+}
+div.resume.display.preview{
+    border: 1px solid red;
+    margin: 0px 5px;
+    max-height: 320;
+    height: 150px;
+    overflow-y: auto;
+}
+a.img-wrap{
+    background: transparent;
+    border: 0 none;
+    color: white;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    text-decoration: none;
+}
+

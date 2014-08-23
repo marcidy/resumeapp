@@ -14,7 +14,7 @@ def came_from(request):
 
 def new_item(clazz, request):
     text = request.params['text']
-    username = request.authenticated_userid()
+    username = request.authenticated_userid
     item = clazz(text=text, user_id=username)
     with transaction.manager:
         db.add(item)

@@ -16,11 +16,10 @@ charset="utf-8" />
 <![endif]-->
 {% endblock %}
 {% block content %}
-{% import 'templates/forms.jinja2' as forms %}
 {% import 'templates/macros.jinja2' as macros %}
 <div class="wrap">
   {% if resumes %}
-  {{ macros.display_resumes(resumes, True, request) }}
+  {{ macros.select_resumes(resumes, request) }}
   {% else %}
   <a href='/resumes/new'>Start a new Resume</a>
   {% endif %}

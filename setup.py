@@ -19,6 +19,7 @@ requires = [
     'pyramid_tm',
     'pyramid_sqlalchemy',
     'SQLAlchemy',
+    'selenium',
     'transaction',
     'waitress',
     'zope.sqlalchemy',

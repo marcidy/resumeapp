@@ -19,11 +19,12 @@ charset="utf-8" />
 {% import 'templates/forms.jinja2' as forms %}
 {% import 'templates/macros.jinja2' as macros %}
 <div class="wrap">
-  {% if resumes %}
-  {{ macros.display_resumes(resumes, True, request) }}
-  {% else %}
-  <a href='/resumes/new'>Start a new Resume</a>
-  {% endif %}
+  <form id="section_form">
+    <textarea></textarea>
+  </form>
+  <form id="cvitemized_item_form">
+    <textarea></textarea>
+  </form>
 </div>
 {% endblock %}
 

@@ -84,7 +84,7 @@ var cvListItems = {
     'selector' : "[id^=cvlistitem_]",
     'form_getter' : "#cvlistitem_form",
     'edit_targets' : ["div.section.description"],
-    'form_prefil' : ''
+    'form_prefil' : ['textarea']
 };
 var cvColumns = {
     'selector' : "[id^=cvcolumn_]",
@@ -108,7 +108,7 @@ var cvItemizedItems = {
     'selector' : "[id^=cvitemized_item_]",
     'form_getter' : "#cvitemized_item_form",
     'edit_targets' : ["div.section.description"],
-    'form_prefil' : ''
+    'form_prefil' : ['textarea']
 };
 
 var resumeElementType = function(elem) {
@@ -130,34 +130,62 @@ var resumeIndex = {
     'cvitemizeditem' : cvItemizedItems
 };
 
-var getForm  = function(elem){
-    var indexItem = resumeElementType(elem);
-    var resumeIndexItem = resumeIndex[indexItem];
+var getForm  = function(elem, callback){
     var form_getter = resumeIndex[resumeElementType(elem)].form_getter;
     var form = document.createElement("div");
-    form.id = "form_" + elem.id;
-    $(form).load("/forms/resume_edit " + form_getter);
+    $(form).attr("id", "form_" + $(elem).attr("id"));
+    $(form).load("/forms/resume_edit " + form_getter, callback);
+    // FIXME:
+    // callback fires before form_getter selector
+    // Add form_getter to populate form as well
     return form;
 };
 
-    
+var populateForm = function(selectors, accessors, data){
+    return function(resp, status, xhr) {
+        for (var i=0; i < selectors.length; i++) {
+            // get form.getter
+            // use it on resp because callback fires
+            // before form_getter in getForm is applied
+            var obj = $(resp).find(selectors[i]);
+            $(resp).find(selectors[i]).val(data[i]);
+            var out = obj.val();
+            obj.innerText = "cock sucker";
+            var out2 = obj.val();
+        }
+    };
+};
 
-var editMenus =  {
+var editMenus = { 
     'trigger' : {'method' : 'click'},
     'actions' : function(elem) {
         return function() {
-            $(elem).css("color", "green");
+            $(elem).hide();
+            selectors = resumeIndex[resumeElementType(elem)].form_prefil;
+            accessors = ['html'];
+            data = ["testicles"];
+            form = $("[id=form_"+$(elem).attr("id")+"]");
+            if (form.length === 0) {
+                form = getForm(elem, populateForm(selectors, accessors, data));
+                $(elem).after(form);
+            }
+            $(form).show();
+            $(form)[editMenus.end.method](editMenus.last(elem));
         };
     },
-    'end' : {'method' : 'blur'},
+    'end' : {'method' : 'mouseout'},
     'last' : function(elem) {
         return function() {
             $(elem).css("color", "purple");
+            $(elem).show();
+            form = $("[id=form_"+$(elem).attr("id")+"]");
+            if (form.length > 0) {
+                form.hide();
+            }
         };
     },
     'init' : function(elem) {
         $(elem)[editMenus.trigger.method](editMenus.actions(elem));
-        $(elem)[editMenus.end.method](editMenus.last);
     }
 };
 
@@ -176,6 +204,9 @@ $(document).ready(function(){
     elem = $("[id=cvitemized_item_5]");
     form = getForm(elem);
     $(elem).after(form);
+    var g = $(form).find('textarea');
+    $(form).find('textarea').defaultValue = "test";
+
 
     for (var i=0; i < sections.length; i++) {
         //x.init(sections[i]);

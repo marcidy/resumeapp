@@ -24,14 +24,16 @@ def get_items(clazz, userid):
     return objs.filter(clazz.logical_del.isnot(1))
 
 
-@view_config(route_name='front_page', renderer='templates/home.jinja2')
+@view_config(route_name='front_page',
+             renderer='templates/home.jinja2')
 def home_page(request):
     if 'form.submitted' in request.params and request.params['form.submitted'] == 'Login':
         return login(request)
     return dict(user=request.authenticated_userid)
 
 
-@view_config(route_name='edit_items', renderer='templates/edit_items.jinja2',
+@view_config(route_name='edit_items',
+             renderer='templates/edit_items.jinja2',
              permission='view')
 def edit_items(request):
     if request.method == 'POST':
@@ -53,7 +55,8 @@ def edit_items(request):
                 categories=categories)
 
 
-@view_config(route_name='view_resume', renderer='templates/view_resume.jinja2',
+@view_config(route_name='view_resume',
+             renderer='templates/view_resume.jinja2',
              permission='view')
 def view_resume(request):
 
@@ -64,14 +67,16 @@ def view_resume(request):
                 resumes=resumes)
 
 
-@view_config(route_name='select_template', renderer='templates/select_template.jinja2',
+@view_config(route_name='select_template',
+             renderer='templates/select_template.jinja2',
              permission='view')
 def select_template(request):
     user = request.authenticated_userid
     return dict(user=user)
 
 
-@view_config(route_name='select_resume', renderer='templates/select_resume.jinja2',
+@view_config(route_name='select_resume',
+             renderer='templates/select_resume.jinja2',
              permission='view')
 def select_resume(request):
 
